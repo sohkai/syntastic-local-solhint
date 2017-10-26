@@ -11,24 +11,24 @@ fun! s:GetNodeModulesAbsPath ()
   return path is '' ? '' : fnamemodify(path, ':p')
 endfun
 
-" return full path of local solium executable
+" return full path of local solhint executable
 "  or an empty string if no executable found
-fun! s:GetSoliumExec (node_modules)
-  let solium_guess = a:node_modules is '' ? '' : a:node_modules . '.bin/solium'
-  return exepath(solium_guess)
+fun! s:GetSolhintExec (node_modules)
+  let solhint_guess = a:node_modules is '' ? '' : a:node_modules . '.bin/solhint'
+  return exepath(solhint_guess)
 endfun
 
-" if solium_exec found successfully, set it for the current buffer
-fun! s:LetSoliumExec (solium_exec)
-  if a:solium_exec isnot ''
-    let b:syntastic_solidity_solium_exec = a:solium_exec
+" if solhint_exec found successfully, set it for the current buffer
+fun! s:LetSolhintExec (solhint_exec)
+  if a:solhint_exec isnot ''
+    let b:syntastic_solidity_solhint_exec = a:solhint_exec
   endif
 endfun
 
 fun! s:main ()
   let node_modules = s:GetNodeModulesAbsPath()
-  let solium_exec = s:GetSoliumExec(node_modules)
-  call s:LetSoliumExec(solium_exec)
+  let solhint_exec = s:GetSolhintExec(node_modules)
+  call s:LetSolhintExec(solhint_exec)
 endfun
 
 call s:main()
